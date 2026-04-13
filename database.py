@@ -48,6 +48,19 @@ class Database:
         #               "DELETE FROM todotasks WHERE id=?"
         # where the "?" is the ID.
         # look at GetTaskByID as an example to base this solution off of.
+        conn = sqlite3.connect(self.__db_path)
+        cursor = conn.cursor()
+        try:
+            result = cursor.execute(f"DELETE FROM todotasks WHERE id=?"(id,)).fetchall()[0]
+            conn.commit()
+            conn.close()
+            return result
+                                    
+        except sqlite3.IntegrityError as e:
+            return None
+        except sqlite3.Error as e:
+            print(f"Database Error: {e}")
+            return None
 
 
     def GetTasks(self):
