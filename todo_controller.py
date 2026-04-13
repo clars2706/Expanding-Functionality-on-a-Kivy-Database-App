@@ -38,20 +38,20 @@ class SimpleToDoView(BoxLayout):
     remove_task_id = StringProperty("")
 
     def on_click_remove_task(self):
-    try:
-        task_id = int(self.remove_task_id)
-    except ValueError:
-        print("Invalid ID")
-        return
+        try:
+            task_id = int(self.remove_task_id)
+        except ValueError:
+            print("Invalid ID")
+            return
 
-    success = self.__model.RemoveTask(task_id)
+        success = self.__model.RemoveTask(task_id)
 
-    if success:
-        print("Task removed")
-    else:
-        print("Failed to remove task")
+        if success:
+            print("Task removed")
+        else:
+            print("Failed to remove task")
 
-    self.load_records()
-    
+        self.load_records()
+        
 Builder.load_file("todo_view.kv")
 
