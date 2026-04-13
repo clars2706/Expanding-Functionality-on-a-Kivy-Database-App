@@ -35,7 +35,23 @@ class SimpleToDoView(BoxLayout):
 
     
     # Add a method to be called when the user initiates a delete command.
-        
+    remove_task_id = StringProperty("")
+
+    def on_click_remove_task(self):
+    try:
+        task_id = int(self.remove_task_id)
+    except ValueError:
+        print("Invalid ID")
+        return
+
+    success = self.__model.RemoveTask(task_id)
+
+    if success:
+        print("Task removed")
+    else:
+        print("Failed to remove task")
+
+    self.load_records()
     
 Builder.load_file("todo_view.kv")
 
